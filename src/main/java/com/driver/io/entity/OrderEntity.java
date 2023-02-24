@@ -1,13 +1,9 @@
 package com.driver.io.entity;
+import java.util.List;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity(name = "orders")
+@Entity(name = "orderEntity")
 public class OrderEntity {
 
 	@Id
@@ -25,9 +21,16 @@ public class OrderEntity {
 
 	@Column(nullable = false)
 	private String userId;
-	
+
 	@Column(nullable = false)
 	private boolean status;
+
+	@ManyToOne
+	@JoinColumn
+	UserEntity userEntity;
+
+	@OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
+	List<FoodEntity> foodEntityList;
 
 	public long getId() {
 		return id;
